@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace = "comment">
+
+	<!-- 현재 덧글 수 -->
+	<select id="cCount" parameterType="int" resultType="comments.dto.CommentsDTO">
+		SELECT count(*) FROM comments WHERE num = #{num}
+	</select>
+	
+	
+	<select id="cList" parameterType="int" resultType="comments.dto.CommentsDTO">
+		SELECT * FROM comments WHERE num = #{num}
+	</select>
+	
+	<insert id = "cSave" parameterType="comments.dto.CommentsDTO">
+		INSERT INTO comments 
+		VALUES(#{comContent, jdbcType=VARCHAR}, SYSTIMESTAMP, #{num},0,#{ip},#{memberEmail, jdbcType=VARCHAR})
+    </insert>
+ 
+</mapper>

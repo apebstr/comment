@@ -2,47 +2,48 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="fn" uri ="http://java.sun.com/jsp/jstl/functions" %>    
+<%@ taglib prefix="fn" uri ="http://java.sun.com/jsp/jstl/functions" %>   
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
 <script>
-	$(document).ready(function() {
-		$('#list').click(function(){
-			$('#frm').attr('action', 'list.do').submit();
-		});	
-		
-		$('#answer').click(function(){
-			$('#frm').attr('action', 'write.do').submit();
-		});
-		
-		$('#update').click(function(){
-			$('#frm').attr('action', 'update.do').submit();
-		});
-		
-		$('#delete').click(function(){
-			$('#frm').attr('action', 'delete.do').submit();
-		});
-		
-
-		$('#btnComSend').on('click',process)
-
-		function process() {
-			$.ajax({
-				type : 'POST',
-				dataType : 'text',
-				data : {comContent:$('#comContent').val()},
-				url : 'test.do',
-				success : viewMessage
-			});
-			console.log($('#comContent').val());
-		}
-
-		function viewMessage(commentview) {
-			$('#commentView').html("ㅎㅇ");
-			console.log("viewMessage");
-		}
+$(document).ready(function() {
+	$('#list').click(function(){
+		$('#frm').attr('action', 'list.do').submit();
+	});	
+	
+	$('#answer').click(function(){
+		$('#frm').attr('action', 'write.do').submit();
 	});
+	
+	$('#update').click(function(){
+		$('#frm').attr('action', 'update.do').submit();
+	});
+	
+	$('#delete').click(function(){
+		$('#frm').attr('action', 'delete.do').submit();
+	});
+	
+
+	$('#btnComSend').on('click',process);
+});
+
+console.log('jquery');
+
+	function process() {
+		$.ajax({
+			type : 'POST',
+			dataType : 'text',
+			data : {comContent:$('#comContent').val()},
+			url : 'view.do?currentPage=${currentPage}&num=${dto.num}',
+			success : viewMessage
+		});
+		console.log($('#comContent').val());
+	};
+
+	function viewMessage(res) {
+		$('#commentView').html(res);
+		console.log("viewMessage");
+	};
 </script>
 
 <div class="container">

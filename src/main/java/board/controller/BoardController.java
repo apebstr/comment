@@ -82,14 +82,25 @@ public class BoardController {
       return "redirect:/board/list.do";
    }
    
-   @RequestMapping("/board/view.do")
+   @RequestMapping(value="/board/view.do", method=RequestMethod.GET)
    public ModelAndView viewExcute(int currentPage, int num, ModelAndView mav) {
-      System.out.printf("currentPage:%d, num:%d", currentPage, num);
+      System.out.printf("currentPage:%d, num:%d\n", currentPage, num);
       mav.addObject("dto", boardService.contentProcess(num));
       mav.addObject("currentPage", currentPage);
       mav.setViewName("board/view");
       return mav;
    }
+   
+	//(ajax) 덧글처리 - 버튼 클릭하면 처리될 내용
+	@RequestMapping(value="/board/view.do", method=RequestMethod.POST)
+	public ModelAndView process(int currentPage, int num, String comContent, ModelAndView mav) {
+		System.out.printf("currentPage:%d, num:%d\n", currentPage, num);
+		mav.addObject("comContent", comContent);
+	    mav.addObject("dto", boardService.contentProcess(num));
+	    mav.addObject("currentPage", currentPage);
+		mav.setViewName("board/res");		
+		return mav;
+	}
    
    @RequestMapping(value="/board/update.do", method=RequestMethod.GET)
    public ModelAndView updateExecute(int num, int currentPage, ModelAndView mav) {

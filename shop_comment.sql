@@ -64,6 +64,14 @@ CREATE TABLE comments(
     memberEmail varchar2(50)   
 );
 
+INSERT INTO comments 
+VALUES('test', SYSTIMESTAMP, 8,0,'127.0.0.1','abc@email.com');
+
 SELECT * FROM comments;
+
+SELECT count(*)
+FROM comments
+WHERE num = 8;
+
 
 commit;
